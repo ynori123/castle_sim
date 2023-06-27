@@ -5,7 +5,7 @@ import random
 
 # 防衛地点のx座標,y座標,人数をまとめたCSVファイルの場所
 SPOT_PATH = './spot.csv'
-# 攻撃者の速さ（分速）
+# 攻撃者の速さ（秒速）
 ATTACKER_SPEED :float = 1.5 # m/s 
 # 一発撃つのにかかる時間
 DEFENCE_GUN_RATE :float = 20 # s/発 
