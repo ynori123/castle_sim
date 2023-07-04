@@ -1,22 +1,6 @@
 import csv
 import random
 
-########## initialize ##########
-
-# 防衛地点のx座標,y座標,人数をまとめたCSVファイルの場所
-SPOT_PATH = './spot.csv'
-# 攻撃者の速さ（秒速）
-ATTACKER_SPEED :float = 1.5 # m/s 
-# 一発撃つのにかかる時間
-DEFENCE_GUN_RATE :float = 20 # s/発 
-# 攻撃者の人数
-ATTACKER_COUNT :int = 1000 # 人
-# スタートの座標
-START_POINT :tuple[float] = (0, 0)
-# ゴールの座標
-GOAL_POINT :tuple[float] = (0, 100)
-
-################################
 
 # Defence_spot class
 class Defence_spot:
@@ -28,13 +12,20 @@ class Defence_spot:
         # Spotから一回で撃てる弾数
         self.count = count
 
+# 防衛地点のx座標,y座標,人数をまとめたCSVファイルの場所
+SPOT_PATH = './spot.csv'
+# 攻撃者の速さ（秒速）
+ATTACKER_SPEED :float = 1.5 # m/s 
+# 一発撃つのにかかる時間
+DEFENCE_GUN_RATE :float = 20 # s/発 
 
-
-def main() -> None:
+def sim(attacker_num,start_point,goal_point,offset) -> None:
     # 生存している攻撃者
-    attacker_alive = ATTACKER_COUNT
-    attacker_position :list[tuple] = calc_pos()
-    defencer_position :list[tuple] = defence_point()
+    attacker_alive = attacker_num
+    attacker_position :list[tuple] = calc_pos(start_point=start_point,goal_point=goal_point)
+    amp = defence_point()
+    defencer_position :list[tuple] = amp[0]
+    defence_spot = amp[1]
     for a in attacker_position:
         # その地点での攻撃者からかく防衛地点への距離を計算
         l :list[float] = calc_r(defencer_position, a)
@@ -51,14 +42,11 @@ def main() -> None:
     # 生存者は負の数にならない
     if attacker_alive < 0:
         attacker_alive = 0
-    print(attacker_alive)
-    
-
-spot_num = 0
-defence_spot :list[Defence_spot] = []
-spot_position :list[tuple] = []
+    return(attacker_alive)
 
 def defence_point() -> None:
+    spot_num = 0
+    defence_spot :list[Defence_spot] = []
     with open(SPOT_PATH) as f:
         reader = csv.reader(f)
         data = [row for row in reader]
@@ -67,7 +55,7 @@ def defence_point() -> None:
         defence_spot.append(Defence_spot(int(d[0]), int(d[1]),int(d[2])))
         calc_dat.append((int(d[0]),int(d[1])))
     spot_num = len(data)
-    return calc_dat
+    return [calc_dat,defence_spot]
 
 import math
 # Spotと人間との距離計算
@@ -98,12 +86,12 @@ def calc_p(dis :list[float]) -> list[float]:
     return res
 
 # 発射する時の攻撃者の場所
-def calc_pos() -> list[tuple]:
+def calc_pos(start_point,goal_point) -> list[tuple]:
     res :list[tuple] = []
-    start_x = START_POINT[0]
-    start_y = START_POINT[1]
-    goal_x = GOAL_POINT[0]
-    goal_y = GOAL_POINT[1]
+    start_x = start_point[0]
+    start_y = start_point[1]
+    goal_x = goal_point[0]
+    goal_y = goal_point[1]
     # スタートからゴールまでの距離
     distance = math.sqrt((start_x - goal_x)**2 + (start_y - goal_y)**2)
     # 最短経路を通った時通過するのに何秒かかるか
@@ -121,6 +109,3 @@ def calc_pos() -> list[tuple]:
         res.append(tuple(now))
     return res
     
-
-if __name__ == '__main__':
-    main()
