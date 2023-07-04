@@ -8,7 +8,7 @@ COUNT = 250
 att_win = 0
 output_list = []
 for i in tqdm.tqdm(range(COUNT)):
-    result = subprocess.check_output(['python3', 'sim.py']).decode().strip()
+    result = subprocess.check_output(['python', 'sim.py']).decode().strip()
     if int(result) > 0:
         att_win += 1
     output_list.append(int(result))
