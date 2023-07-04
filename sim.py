@@ -71,7 +71,7 @@ def defence_point() -> None:
 
 import math
 # Spotと人間との距離計算
-def calc_r(data :list[tuple], pos :tuple) -> list:
+def calc_r(data :list[tuple], pos :tuple) -> list[float]:
     res = []
     r = 0
     r_x = 0
@@ -92,7 +92,7 @@ def calc_p(dis :list[float]) -> list[float]:
             r = 100
         elif r < 0:
             r = 0
-        r = float( r / 100)
+        r = float(r / 100)
         res.append(r)
     
     return res

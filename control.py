@@ -3,7 +3,7 @@ import numpy as np
 import tqdm
 
 # 実行回数
-COUNT = 250
+COUNT = 100
 
 att_win = 0
 output_list = []
