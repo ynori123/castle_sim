@@ -3,24 +3,24 @@ import numpy as np
 import tqdm
 
 # 実行回数
-COUNT = 100
+COUNT = 9999
 
 ######### initialize ##########
 # 攻撃者の人数
-attacker_num :int = 1000, # 人
+attacker_num :int = 1000 # 人
 # スタートの座標
-start_point :tuple[float] = (0, 0),
+start_point :tuple[float] = (0, 0)
 # ゴールの座標
-goal_point :tuple[float] = (0, 100),
+goal_point :tuple[float] = (0, 100)
 # オフセット 
 offset :int = 0, # sec
 ################################
 
 att_win = 0
 output_list = []
-from .sim import sim
+import sim
 for i in tqdm.tqdm(range(COUNT)):
-    result = sim(
+    result = sim.sim(
         attacker_num=attacker_num,
         start_point=start_point,
         goal_point=goal_point,

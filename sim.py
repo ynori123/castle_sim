@@ -19,7 +19,12 @@ ATTACKER_SPEED :float = 1.5 # m/s
 # 一発撃つのにかかる時間
 DEFENCE_GUN_RATE :float = 20 # s/発 
 
-def sim(attacker_num,start_point,goal_point,offset) -> None:
+def sim(
+        attacker_num :int,
+        start_point:tuple[float],
+        goal_point:tuple[float],
+        offset:float
+        ) -> None:
     # 生存している攻撃者
     attacker_alive = attacker_num
     attacker_position :list[tuple] = calc_pos(start_point=start_point,goal_point=goal_point)
@@ -27,7 +32,7 @@ def sim(attacker_num,start_point,goal_point,offset) -> None:
     defencer_position :list[tuple] = amp[0]
     defence_spot = amp[1]
     for a in attacker_position:
-        # その地点での攻撃者からかく防衛地点への距離を計算
+        # その地点での攻撃者から各防衛地点への距離を計算
         l :list[float] = calc_r(defencer_position, a)
         # 距離の確率を計算
         p = calc_p(l)
