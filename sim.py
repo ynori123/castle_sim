@@ -23,8 +23,7 @@ def sim(
         attacker_num :int,
         start_point:tuple[float],
         goal_point:tuple[float],
-        offset:float
-        ) -> None:
+    ) -> None:
     # 生存している攻撃者
     attacker_alive = attacker_num
     attacker_position :list[tuple] = calc_pos(start_point=start_point,goal_point=goal_point)
