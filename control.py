@@ -1,4 +1,3 @@
-import subprocess
 import numpy as np
 import tqdm
 
@@ -25,6 +24,7 @@ for obj in curvepoint:
     route.append(obj)
 route.append(GOALPOINT)
 def simulates():
+    att_num = attacker_num
     for i in range(len(route)-1):
         simulate(
             start_point=route[i],
